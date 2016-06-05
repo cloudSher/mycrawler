@@ -1,0 +1,15 @@
+*.iml
+*.class
+*.ipr
+*.iws
+.idea/
+
+# .gitignore for maven
+target/
+*.releaseBackup
+
+/target
+/.settings
+/.classpath
+/.project
+/*.war
