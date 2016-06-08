@@ -5,14 +5,14 @@
   <parent>
     <groupId>com.sher</groupId>
     <artifactId>mycrawler</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOP</version>
   </parent>
 
   <groupId>com.sher.mycrawler</groupId>
   <artifactId>admin</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>admin Maven Webapp</name>
+  <name>admin</name>
   <url>http://maven.apache.org</url>
 
   <dependencies>

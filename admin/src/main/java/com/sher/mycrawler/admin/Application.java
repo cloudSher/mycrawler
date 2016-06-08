@@ -22,7 +22,7 @@ public class Application {
 
     public static void main(String args[]){
         logger.info("================== app starting===============");
-        SpringApplication.run(Application.class,args);
+        SpringApplication.run(Application.class, args);
         logger.info("===================app start success=============");
     }
 }
