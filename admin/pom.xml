@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.sher</groupId>
     <artifactId>mycrawler</artifactId>
-    <version>0.0.1-SNAPSHOP</version>
+    <version>0.0.1-SNAPSHOT</version>
   </parent>
 
   <groupId>com.sher.mycrawler</groupId>
@@ -34,9 +34,32 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+
+    <!-- dependency-->
+    <dependency>
+      <groupId>com.sher.mycrawler</groupId>
+      <artifactId>service</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 
   <build>
     <finalName>admin</finalName>
+    <!-- 源码目录 -->
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <resources>
+      <!-- 控制资源文件的拷贝 -->
+      <resource>
+        <directory>src/main/resources</directory>
+        <targetPath>${project.build.directory}/classes</targetPath>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+
   </build>
 </project>

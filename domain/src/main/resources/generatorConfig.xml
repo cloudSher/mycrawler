@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+	<context id="sher_Tables" targetRuntime="MyBatis3">
+		<property name="javaFileEncoding" value="utf-8" />
+
+		<!-- pagination plugin -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<plugin type="org.mybatis.generator.plugin.PaginationMysqlPlugin" />
+		<plugin type="org.mybatis.generator.plugin.CommentPlugin" />
+
+		<commentGenerator>
+			<!-- 不生成注解信息 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://123.57.213.106/crawler"
+						userId="root"
+						password="Root123456!" />
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- generate Model -->
+		<javaModelGenerator targetPackage="com.sher.mycrawler.domain" targetProject="src/main/java" />
+
+		<!-- generate xml -->
+		<sqlMapGenerator targetPackage="com.sher.mycrawler.mapper" targetProject="src/main/resources" />
+
+		<!-- generate Mapper -->
+		<javaClientGenerator targetPackage="com.sher.mycrawler.mapper" targetProject="src/main/java" type="XMLMAPPER" />
+
+		<!--TAble-->
+		<table tableName="caller" domainObjectName="Caller">
+			<generatedKey column="callerId" sqlStatement="MySQL" identity="true" />
+		</table>
+
+
+
+	</context>
+
+</generatorConfiguration>

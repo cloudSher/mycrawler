@@ -10,7 +10,7 @@
 
     <groupId>com.sher</groupId>
     <artifactId>mycrawler</artifactId>
-    <version>0.0.1-SNAPSHOP</version>
+    <version>0.0.1-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 

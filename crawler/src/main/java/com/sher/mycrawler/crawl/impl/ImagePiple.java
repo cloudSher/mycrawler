@@ -25,7 +25,7 @@ public class ImagePiple extends FilePersistentBase implements Pipeline {
 
         public void process(ResultItems resultItems, Task task) {
             String path = this.path + PATH_SEPERATOR  + PATH_SEPERATOR;
-            List<String> list = resultItems.get("images");
+            List<String> list = resultItems.get("image");
             for (String url : list) {
                 System.out.println("图片路径:=="+url);
                 try {

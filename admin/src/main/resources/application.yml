@@ -1,0 +1,19 @@
+# 端口，暂无作用
+server:
+      port:8080
+      #context-path: #/advisor/
+# spring 配置
+spring:
+    mvc:
+        view:
+            prefix: /templates/
+            suffix: .ftl
+    freemarker:
+        cache: false
+        request-context-attribute: request
+#security:
+#    basic:
+#        enabled:false
+#    user:
+#        password:password
+

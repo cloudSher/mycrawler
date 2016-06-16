@@ -4,4 +4,4 @@
  *
  * 公共类
  */
-package com.sher.mycrawler;
+package com.sher.mycrawler.common;

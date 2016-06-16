@@ -31,6 +31,16 @@
             <artifactId>webmagic-extension</artifactId>
             <version>0.5.3</version>
         </dependency>
+        <dependency>
+            <groupId>com.sher.mycrawler</groupId>
+            <artifactId>domain</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sher.mycrawler</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
