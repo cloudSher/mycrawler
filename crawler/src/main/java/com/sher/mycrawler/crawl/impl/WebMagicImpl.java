@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sher.mycrawler.common.constant.StoreType;
 import com.sher.mycrawler.crawl.Crawl;
 import com.sher.mycrawler.domain.*;
+import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.pipeline.JsonFilePipeline;
 
@@ -16,6 +17,7 @@ import java.util.List;
  *
  * webmigc impl for crawl
  */
+@Service
 public class WebMagicImpl implements Crawl {
 
 

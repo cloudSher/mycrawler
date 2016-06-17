@@ -38,6 +38,11 @@
     <!-- dependency-->
     <dependency>
       <groupId>com.sher.mycrawler</groupId>
+      <artifactId>crawler</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sher.mycrawler</groupId>
       <artifactId>service</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>

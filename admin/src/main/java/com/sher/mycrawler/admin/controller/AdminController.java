@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class AdminController {
 
     @Autowired
-    Crawl crawlerService;
+    Crawl crawl;
 
     @RequestMapping("/")
     public ModelAndView home(){
@@ -31,7 +31,7 @@ public class AdminController {
     @RequestMapping("/crawl")
     public String crawl(String json){
         if(json != null){
-            String result = crawlerService.crawl(json);
+            String result = crawl.crawl(json);
             if(result!=null){
                 return Result.success("已经完成").toString();
             }
