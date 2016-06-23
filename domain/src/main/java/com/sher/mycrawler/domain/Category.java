@@ -19,6 +19,11 @@ public class Category implements Serializable {
     /**  */
     private String type;
 
+    public Category(String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
