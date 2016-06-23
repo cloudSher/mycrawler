@@ -1,6 +1,6 @@
 # 端口，暂无作用
 server:
-      port:8080
+      port:9005
       #context-path: #/advisor/
 # spring 配置
 spring:

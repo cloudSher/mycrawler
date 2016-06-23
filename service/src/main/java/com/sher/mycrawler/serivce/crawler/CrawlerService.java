@@ -1,4 +1,4 @@
-package com.sher.mycrawler.serivce;
+package com.sher.mycrawler.serivce.crawler;
 
 import com.sher.mycrawler.domain.Result;
 

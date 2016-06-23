@@ -34,8 +34,8 @@
 		<javaClientGenerator targetPackage="com.sher.mycrawler.mapper" targetProject="src/main/java" type="XMLMAPPER" />
 
 		<!--TAble-->
-		<table tableName="caller" domainObjectName="Caller">
-			<generatedKey column="callerId" sqlStatement="MySQL" identity="true" />
+		<table tableName="category" domainObjectName="Category">
+			<generatedKey column="id" sqlStatement="MySQL" identity="true" />
 		</table>
 
 

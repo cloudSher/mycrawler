@@ -20,6 +20,8 @@
         <module>common</module>
         <module>domain</module>
         <module>service</module>
+        <module>searcher</module>
+        <module>indexer</module>
     </modules>
 
     <!-- 常量管理-->

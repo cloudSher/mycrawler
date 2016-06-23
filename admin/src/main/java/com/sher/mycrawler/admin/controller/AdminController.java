@@ -5,6 +5,7 @@ import com.sher.mycrawler.domain.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @EnableAutoConfiguration
+@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
@@ -29,6 +31,7 @@ public class AdminController {
 
 
     @RequestMapping("/crawl")
+    @ResponseBody
     public String crawl(String json){
         if(json != null){
             String result = crawl.crawl(json);
@@ -39,5 +42,28 @@ public class AdminController {
         return Result.failed("操作失败，请查看日志").toString();
     }
 
+
+
+    @RequestMapping("/index")
+    @ResponseBody
+    public String index(){
+
+        return null;
+    }
+
+
+    @RequestMapping("/save")
+    @ResponseBody
+    public String save(){
+
+        return null;
+    }
+
+    @RequestMapping("/del")
+    @ResponseBody
+    public String del(){
+
+        return null;
+    }
 
 }

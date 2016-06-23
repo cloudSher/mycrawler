@@ -1,24 +1,31 @@
 package com.sher.mycrawler.domain;
 
+import java.io.Serializable;
+
 /**
- * Created by cloudsher on 2016/6/15.
+ * 
+ *
+ * @author Administrator
+ * @date 2016-06-23
+ *
  */
-public class Category {
+public class Category implements Serializable {
+    /**  */
+    private Integer id;
 
-    private String id;
+    /**  */
     private String name;
-    private String type;        //1.文本  2.图片  3.视频
 
-    public Category(String name, String type) {
-        this.name = name;
-        this.type = type;
-    }
+    /**  */
+    private String type;
 
-    public String getId() {
+    private static final long serialVersionUID = 1L;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
