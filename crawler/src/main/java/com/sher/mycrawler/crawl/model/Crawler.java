@@ -1,4 +1,4 @@
-package com.sher.mycrawler.domain;
+package com.sher.mycrawler.crawl.model;
 
 import java.util.Date;
 import java.util.List;
@@ -71,6 +71,14 @@ public class Crawler {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 }
 

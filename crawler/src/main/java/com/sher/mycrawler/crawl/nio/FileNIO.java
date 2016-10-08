@@ -1,6 +1,9 @@
 package com.sher.mycrawler.crawl.nio;
 
 import java.io.*;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -41,17 +44,17 @@ public class FileNIO {
 
 
     public static void main(String args[]){
-        down("https://www.jianxun.io/ad/20151101/ifeve-bottombanner.jpg");
+        down("https://www.jianxun.io/ad/20151101/ifeve-bottombanner.jpg",new File(""));
     }
 
 
-    public static void down(String path){
+    public static void down(String path,File dest){
         try {
             URL url = new URL(path);
             URLConnection urlConnection = url.openConnection();
             InputStream inputStream = urlConnection.getInputStream();
             byte[] buff = new byte[1024];
-            RandomAccessFile file = new RandomAccessFile("/Users/sher/bb.jpg","rw");
+            RandomAccessFile file = new RandomAccessFile(dest,"rw");
             FileChannel fileChannel = file.getChannel();
 
             ByteBuffer buffer = ByteBuffer.allocate(1024);
@@ -62,7 +65,8 @@ public class FileNIO {
                 buffer.flip();
                 fileChannel.write(buffer);
             }
-
+            fileChannel.close();
+            inputStream.close();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -70,5 +74,20 @@ public class FileNIO {
         }
 
     }
+
+
+
+//    public static Object proxy(Object obj){
+//        return Proxy.newProxyInstance(FileIODemo.class.getClassLoader(), FileIODemo.class.getInterfaces(), new InvocationHandler() {
+//
+//            @Override
+//            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+//                long start = System.currentTimeMillis();
+//                method.invoke(obj, args[0], args[1]);
+//                System.out.println("time is : " + (System.currentTimeMillis() - start) + " ms");
+//                return obj;
+//            }
+//        });
+//    }
 
 }

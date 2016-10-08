@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sher.mycrawler.common.constant.StoreType;
 import com.sher.mycrawler.crawl.Crawl;
+import com.sher.mycrawler.crawl.model.*;
 import com.sher.mycrawler.domain.*;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Spider;

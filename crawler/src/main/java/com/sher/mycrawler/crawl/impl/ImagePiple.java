@@ -1,5 +1,6 @@
 package com.sher.mycrawler.crawl.impl;
 
+import com.sher.mycrawler.crawl.nio.FileNIO;
 import org.apache.commons.codec.digest.DigestUtils;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
@@ -19,8 +20,8 @@ import java.util.Random;
  */
 public class ImagePiple extends FilePersistentBase implements Pipeline {
 
-         ImagePiple(String dir){
-            this.setPath(dir);
+        ImagePiple(String dir){
+             this.setPath(dir);
         }
 
         public void process(ResultItems resultItems, Task task) {
@@ -33,8 +34,7 @@ public class ImagePiple extends FilePersistentBase implements Pipeline {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                out(getFile(path + DigestUtils.md5Hex(url) + ".jpg"), url);
-
+                FileNIO.down(url,getFile(path + DigestUtils.md5Hex(url) + ".jpg"));
             }
         }
 

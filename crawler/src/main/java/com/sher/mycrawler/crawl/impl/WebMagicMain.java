@@ -7,13 +7,45 @@ import us.codecraft.webmagic.Spider;
  */
 public class WebMagicMain {
 
-
+    /***
+     *
+     * 请求的参数json:
+     *
+     *   {
+            "category": "文本",
+            "type": "2",
+            "category_type": "1",
+            "dest": "f://crawl",
+            "threadNum": 1,
+            "url": "http://blog.csdn.net/kunkun378263/article/details/25644727",
+            "fields": [{
+                "name": "image",
+                "value": "//p",
+                "type": "2"
+            }]
+        }
+     *
+     * @param args
+     */
     public static void main(String args[]){
         if(args!=null && args.length >0){
             String data = args[0];
 //            String dir = args[1];
-           data = "{\"category\":\"文\n" +
-                   "本\",\"type\":\"2\",\"category_type\":\"1\",\"dest\":\"f://crawl\",\"threadNum\":1,\"url\":\"http://blog.csdn.net/kunkun378263/article/details/25644727\",\"fields\":[{\"name\":\"image\",\"value\":\"//p\",\"type\":\"2\"}]}";
+           data = "{\n" +
+                   "    \"category\": \"文本\",\n" +
+                   "    \"type\": \"2\",\n" +
+                   "    \"category_type\": \"1\",\n" +
+                   "    \"dest\": \"f://crawl\",\n" +
+                   "    \"threadNum\": 1,\n" +
+                   "    \"url\": \"http://blog.csdn.net/kunkun378263/article/details/25644727\",\n" +
+                   "    \"fields\": [\n" +
+                   "        {\n" +
+                   "            \"name\": \"image\",\n" +
+                   "            \"value\": \"//p\",\n" +
+                   "            \"type\": \"2\"\n" +
+                   "        }\n" +
+                   "    ]\n" +
+                   "}";
             WebMagicImpl impl = new WebMagicImpl();
             impl.crawl(data);
         }

@@ -38,6 +38,10 @@
 			<generatedKey column="id" sqlStatement="MySQL" identity="true" />
 		</table>
 
+		<table tableName="crawler" domainObjectName="Crawler">
+			<generatedKey column="id" sqlStatement="MySQL" identity="true" />
+		</table>
+
 
 
 	</context>

@@ -1,6 +1,6 @@
 package com.sher.mycrawler.crawl.impl;
 
-import com.sher.mycrawler.domain.Field;
+import com.sher.mycrawler.crawl.model.Field;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
