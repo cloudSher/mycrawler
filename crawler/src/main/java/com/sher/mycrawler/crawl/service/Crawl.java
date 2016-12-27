@@ -1,4 +1,4 @@
-package com.sher.mycrawler.crawl;
+package com.sher.mycrawler.crawl.service;
 
 /**
  * Created by sher on 6/6/16.

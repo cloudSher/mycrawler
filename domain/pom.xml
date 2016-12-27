@@ -39,6 +39,12 @@
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
     </dependency>
+    <!--datasource-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid</artifactId>
+      <version>1.0.23</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>domain</finalName>

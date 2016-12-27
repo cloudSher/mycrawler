@@ -1,6 +1,6 @@
 package com.sher.mycrawler.admin.controller;
 
-import com.sher.mycrawler.crawl.Crawl;
+import com.sher.mycrawler.crawl.service.Crawl;
 import com.sher.mycrawler.domain.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

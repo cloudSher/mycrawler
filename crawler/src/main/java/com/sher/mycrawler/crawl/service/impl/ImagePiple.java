@@ -1,4 +1,4 @@
-package com.sher.mycrawler.crawl.impl;
+package com.sher.mycrawler.crawl.service.impl;
 
 import com.sher.mycrawler.crawl.nio.FileNIO;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by cloudsher on 2016/6/8.

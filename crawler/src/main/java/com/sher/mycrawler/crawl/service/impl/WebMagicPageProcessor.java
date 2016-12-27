@@ -1,4 +1,4 @@
-package com.sher.mycrawler.crawl.impl;
+package com.sher.mycrawler.crawl.service.impl;
 
 import com.sher.mycrawler.crawl.model.Field;
 import us.codecraft.webmagic.Page;

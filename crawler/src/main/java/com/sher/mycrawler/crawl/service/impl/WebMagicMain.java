@@ -1,4 +1,4 @@
-package com.sher.mycrawler.crawl.impl;
+package com.sher.mycrawler.crawl.service.impl;
 
 import us.codecraft.webmagic.Spider;
 
