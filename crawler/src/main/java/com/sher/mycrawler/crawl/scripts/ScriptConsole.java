@@ -1,8 +1,12 @@
 package com.sher.mycrawler.crawl.scripts;
 
 import org.apache.commons.cli.*;
+import org.assertj.core.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import us.codecraft.webmagic.Spider;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/12/27.
@@ -20,6 +24,7 @@ public class ScriptConsole {
         private String fileName;
         private int threadNum;
         private int sleepTime;
+        private List<String> url;
 
         public ScriptLang getLang() {
             return lang;
@@ -40,10 +45,36 @@ public class ScriptConsole {
         public void setSleepTime(int sleepTime) {
             this.sleepTime = sleepTime;
         }
+
+        public List<String> getUrl() {
+            return url;
+        }
+
+        public void setUrl(List<String> url) {
+            this.url = url;
+        }
+
+        public String getFileName() {
+            return fileName;
+        }
+
+        public int getThreadNum() {
+            return threadNum;
+        }
+
+        public int getSleepTime() {
+            return sleepTime;
+        }
     }
 
-    public static void main(String args[]) throws ParseException {
-        parseCommand(args);
+    public static void main(String args[]) {
+        try {
+            run(parseCommand(args));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            logger.error("脚本运行出错，",e);
+            exit();
+        }
     }
 
 
@@ -81,8 +112,19 @@ public class ScriptConsole {
         if(line.hasOption("s")){
             param.setSleepTime(Integer.valueOf(line.getOptionValue("s")));
         }
+        param.setUrl(line.getArgList());
         return param;
     }
+
+    private static void run(Param param){
+        Spider.create(null)
+              .thread(param.getThreadNum())
+              .addPipeline(null)
+              .addUrl((String[]) param.getUrl().toArray())
+              .run();
+    }
+
+
 
 
 }
