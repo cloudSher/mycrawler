@@ -1,8 +1,11 @@
 package com.sher.mycrawler;
 
+import com.sher.mycrawler.crawl.scripts.ScriptLang;
+import com.sher.mycrawler.crawl.scripts.ScriptProcessor;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import us.codecraft.webmagic.Spider;
 
 /**
  * Unit test for simple App.
@@ -34,5 +37,11 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
+    }
+
+    public void testCrawler(){
+        Spider.create(new ScriptProcessor.Builder().addLang(ScriptLang.JAVASCRIPT).scriptFromClassPath("js/github.js").build())
+                .addUrl("https://github.com/code4craft")
+                .run();
     }
 }

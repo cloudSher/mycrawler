@@ -2,10 +2,9 @@ package com.sher.mycrawler.crawl.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.sher.mycrawler.common.constant.StoreType;
-import com.sher.mycrawler.crawl.service.Crawl;
+import com.sher.mycrawler.crawl.core.constant.StoreType;
 import com.sher.mycrawler.crawl.model.*;
-import org.springframework.stereotype.Service;
+import com.sher.mycrawler.crawl.service.Crawl;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.pipeline.JsonFilePipeline;
 
@@ -17,7 +16,6 @@ import java.util.List;
  *
  * webmigc impl for crawl
  */
-@Service
 public class WebMagicImpl implements Crawl {
 
 
@@ -71,7 +69,7 @@ public class WebMagicImpl implements Crawl {
         Spider spider = Spider.create(pageProcessor)
                 .addUrl(crawler.getUrl().getUrl());
         String destPath = crawler.getUrl().getDestPath();
-        if(crawler.getType().equals(StoreType.TEXT)){
+        if(crawler.getType().equals(StoreType.FILE)){
             spider.addPipeline(new JsonFilePipeline(destPath));
         }else if(crawler.getType().equals(StoreType.IMAGE)){
             spider.addPipeline(new ImagePiple(destPath));

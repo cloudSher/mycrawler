@@ -5,15 +5,15 @@ package com.sher.mycrawler.crawl.scripts;
  */
 public enum ScriptLang {
 
-    JAVASCRIPT("JS",0,"javascript");
+    JAVASCRIPT("javascript", "js/defines.js", "javascript");
 
     private String lang;
-    private int code;
+    private String defines;
     private String desc;
 
-    ScriptLang(String lang,int code,String desc) {
+    ScriptLang(String lang, String defines, String desc) {
         this.lang = lang;
-        this.code = code;
+        this.defines = defines;
         this.desc = desc;
     }
 
@@ -21,8 +21,8 @@ public enum ScriptLang {
         return lang;
     }
 
-    public int getCode() {
-        return code;
+    public String getDefines() {
+        return defines;
     }
 
     public String getDesc() {

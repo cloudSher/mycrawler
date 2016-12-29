@@ -1,11 +1,20 @@
 package com.sher.mycrawler.crawl.scripts;
 
+import com.sher.mycrawler.crawl.core.constant.StoreType;
+import com.sher.mycrawler.crawl.pipeline.DefaultPipelineSelector;
 import org.apache.commons.cli.*;
 import org.assertj.core.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.pipeline.FilePipeline;
+import us.codecraft.webmagic.pipeline.Pipeline;
+import us.codecraft.webmagic.processor.PageProcessor;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 /**
@@ -102,10 +111,11 @@ public class ScriptConsole {
     private static Param createParam(CommandLine line) {
         Param param = new Param();
         if(line.hasOption("t")){
-            param.setThreadNum(Integer.valueOf(line.getOptionValue("f")));
+            param.setThreadNum(Integer.valueOf(line.getOptionValue("t")));
         }
         if(line.hasOption("f")){
             param.setFileName(line.getOptionValue("f"));
+            System.out.println(line.getOptionValue("f"));
         }else{
             exit();
         }
@@ -116,11 +126,62 @@ public class ScriptConsole {
         return param;
     }
 
+
+    public static PageProcessor buildProcessor(Param param){
+        ScriptProcessor processor = new ScriptProcessor.Builder().addLang(param.getLang())
+                .buildScript(param.getFileName()).build();
+        processor.getSite().setSleepTime(param.getSleepTime());
+        return processor;
+    }
+
+    public static String read(){
+        System.out.println("*******************************************");
+        System.out.println("请输入下载类型： 1:文件");
+        String dest = null;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            String line;
+            String type;
+            boolean isType = false;
+            int time = 0;
+            while((line = reader.readLine()) != null){
+                if(line.equals("1")){
+                    type = "1";
+                    System.out.println("请输入下载目录：");
+                    isType = true;
+                }
+                else if(!isType){
+                    isType = false;
+                    System.out.println("输入的类型不正确，请重新选择类型：");
+                }
+                else if(isType){
+                    dest = line;
+                    break;
+                }
+
+                if(time == 3){
+                    System.exit(-1);
+                }
+
+                time++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return dest;
+    }
+
     private static void run(Param param){
-        Spider.create(null)
+        String[] urls = new String[param.getUrl().size()];
+        param.getUrl().toArray(urls);
+        String dest = read();
+        DefaultPipelineSelector selector = new DefaultPipelineSelector();
+        FilePipeline filePipeline = (FilePipeline) selector.select(StoreType.FILE);
+        filePipeline.setPath(dest);
+        Spider.create(buildProcessor(param))
               .thread(param.getThreadNum())
-              .addPipeline(null)
-              .addUrl((String[]) param.getUrl().toArray())
+              .addPipeline(filePipeline)
+              .addUrl(urls)
               .run();
     }
 

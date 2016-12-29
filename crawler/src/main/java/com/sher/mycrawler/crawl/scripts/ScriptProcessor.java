@@ -23,26 +23,41 @@ public class ScriptProcessor implements PageProcessor {
     private ScriptEnginePool pool;
     private ScriptLang lang;
     private Site site = Site.me();
-    private String scripts;
+    private String script;
+    private String defines;
 
-    ScriptProcessor(ScriptLang lang , String scripts){
+    ScriptProcessor(ScriptLang lang , String script){
         this.lang = lang;
-        this.scripts = scripts;
+        this.script = script;
         this.pool = new ScriptEnginePool(lang);
+        loadDefinesJs(lang.getDefines());
+    }
+
+
+    public void loadDefinesJs(String defines){
+        InputStream stream = this.getClass().getClassLoader().getResourceAsStream(defines);
+        try {
+            this.defines = IOUtils.toString(stream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void process(Page page) {
         ScriptEngine engine = pool.getEngine();
-        ScriptContext context = engine.getContext();
-        context.setAttribute("page",page,ScriptContext.ENGINE_SCOPE);
-        context.setAttribute("config",site,ScriptContext.ENGINE_SCOPE);
         try{
+            ScriptContext context = engine.getContext();
+            context.setAttribute("page",page,ScriptContext.ENGINE_SCOPE);
+            context.setAttribute("config",site,ScriptContext.ENGINE_SCOPE);
             switch (lang){
                 case JAVASCRIPT:
-                    engine.eval(scripts);
+                    engine.eval(defines + "\n" + script ,context);
+                    break;
             }
         }catch (Exception e){
-            logger.error("scriptProcessor process() error info", e);
+            logger.error("scriptProcessor process() error info,page {}",page,e);
+        }finally {
+            pool.release(engine);
         }
 
     }
@@ -51,29 +66,41 @@ public class ScriptProcessor implements PageProcessor {
         return site;
     }
 
-    static class Builder{
+    public static class Builder{
         private final static ScriptLang DEFAULT = ScriptLang.JAVASCRIPT;
         private ScriptLang lang = DEFAULT;
-        private String scripts;
+        private String script;
 
-        public void addLang(ScriptLang lang){
+        public Builder addLang(ScriptLang lang){
             this.lang = lang;
+            return this;
         }
 
-        public void buildScript(String fileName){
+        public Builder buildScript(String fileName){
             try {
                 InputStream stream = new FileInputStream(fileName);
                 String script = IOUtils.toString(stream);
-                this.scripts = script;
+                this.script = script;
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            return this;
+        }
+
+        public Builder scriptFromClassPath(String fileName){
+            InputStream stream = this.getClass().getClassLoader().getResourceAsStream(fileName);
+            try {
+                this.script = IOUtils.toString(stream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return this;
         }
 
         public ScriptProcessor build(){
-            return new ScriptProcessor(lang,scripts);
+            return new ScriptProcessor(lang,script);
         }
     }
 }

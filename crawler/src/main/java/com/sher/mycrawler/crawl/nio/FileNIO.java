@@ -9,6 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.Selector;
 
@@ -20,11 +21,11 @@ import java.nio.channels.Selector;
 public class FileNIO {
 
 
-    public static void read(){
+    public static void read(String url){
         try {
-            RandomAccessFile file = new RandomAccessFile("/Users/sher/aa.jpg","rw");
+            RandomAccessFile file = new RandomAccessFile(url,"rw");
             FileChannel fileChannel = file.getChannel();
-            ByteBuffer buffer = ByteBuffer.allocate(47);
+            ByteBuffer buffer = ByteBuffer.allocate(1024);
             int byteRead;
 
             //创建一个selector
@@ -74,6 +75,54 @@ public class FileNIO {
         }
 
     }
+
+
+    /**
+     * channel 传输文件
+     * @param src
+     * @param dest
+     */
+    public static void transferTo(String src,String dest){
+        RandomAccessFile srcFile;
+        RandomAccessFile destFile;
+        try {
+            srcFile = new RandomAccessFile(src, "rw");
+            destFile = new RandomAccessFile(dest, "rw");
+            srcFile.getChannel().transferTo(0,srcFile.length(),destFile.getChannel());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+
+        }
+
+    }
+
+
+    public static void transferToFileByString(String data,File dest){
+        RandomAccessFile destFile = null;
+        try {
+            destFile = new RandomAccessFile(dest, "rw");
+            FileChannel channel = destFile.getChannel();
+            ByteBuffer wrap = ByteBuffer.wrap(data.getBytes());
+            wrap.flip();
+            channel.write(wrap);
+            wrap.clear();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                destFile.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 
 
 
