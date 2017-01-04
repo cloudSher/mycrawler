@@ -1,12 +1,9 @@
 package com.sher.mycrawler.crawl.pipeline;
 
-import com.sher.mycrawler.crawl.model.Document;
 import com.sher.mycrawler.crawl.processor.Processor;
 import com.sher.mycrawler.crawl.processor.ResultItemProcessor;
 import com.sher.mycrawler.crawl.utils.JsonSerialization;
 import com.sher.mycrawler.crawl.utils.ScriptConvertUtils;
-import com.sher.mycrawler.driver.Driver;
-import com.sher.mycrawler.driver.es.ElasticSearchDriver;
 import com.sher.mycrawler.driver.es.ElasticSearchOperation;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import org.elasticsearch.action.index.IndexResponse;
@@ -41,7 +38,7 @@ public class ElasticSearchPipeline implements Pipeline {
         ScriptObjectMirror  document = (ScriptObjectMirror) map.get("document");
         Map asMap = ScriptConvertUtils.asMap(document);
         if(processor.isIntact(asMap,"index","type")){
-            IndexResponse index = operation.index(asMap.get("index").toString(),asMap.get("type").toString(), asMap.get("id") == null? null:asMap.get("id").toString(), asMap.get("data").toString());
+            IndexResponse index = operation.index(asMap.get("index").toString(),asMap.get("type").toString(), asMap.get("id") == null? null:asMap.get("id").toString(), JsonSerialization.asString(asMap.get("data")));
             System.out.println("==============================================");
             System.out.println(resultItems.getRequest().getUrl() +" 已存入es中，index："+index.getIndex()+",type:"+index.getType()+",id:"+index.getId()+",version:"+index.getVersion());
             System.out.println("==============================================");

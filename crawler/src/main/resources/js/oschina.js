@@ -7,8 +7,8 @@ var content = $("textarea.noshow_content");
 
 var url=page.getUrl().toString();
 var document = {
-    'index':url,
-    'type':title,
+    'index':'oschina',
+    'type':'blog',
     'id':null,
     'data':{
         'title':title,
@@ -19,4 +19,4 @@ var document = {
 
 put("document",document);
 
-urls("http://my\\.oschina\\.net/flashsword/blog/\\d+")
+urls("(https://my\\.oschina\\.net/flashsword/blog/\\d+)")
