@@ -1,5 +1,6 @@
 package com.sher.mycrawler;
 
+import com.sher.mycrawler.crawl.pipeline.ElasticSearchPipeline;
 import com.sher.mycrawler.crawl.scripts.ScriptLang;
 import com.sher.mycrawler.crawl.scripts.ScriptProcessor;
 import junit.framework.Test;
@@ -40,8 +41,9 @@ public class AppTest
     }
 
     public void testCrawler(){
-        Spider.create(new ScriptProcessor.Builder().addLang(ScriptLang.JAVASCRIPT).scriptFromClassPath("js/github.js").build())
-                .addUrl("https://github.com/code4craft")
+        Spider.create(new ScriptProcessor.Builder().addLang(ScriptLang.JAVASCRIPT).scriptFromClassPath("js/oschina.js").build())
+                .addPipeline(new ElasticSearchPipeline())
+                .addUrl("https://my.oschina.net/flashsword/blog")
                 .run();
     }
 }

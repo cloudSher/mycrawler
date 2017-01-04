@@ -134,53 +134,61 @@ public class ScriptConsole {
         return processor;
     }
 
-    public static String read(){
+
+    public static HandlerResult readIn(){
         System.out.println("*******************************************");
-        System.out.println("请输入下载类型： 1:文件");
-        String dest = null;
+        System.out.println("请输入下载类型： 1:文件, 2:ES");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
             String line;
-            String type;
-            boolean isType = false;
             int time = 0;
-            while((line = reader.readLine()) != null){
+            while((line = reader.readLine())!=null){
                 if(line.equals("1")){
-                    type = "1";
-                    System.out.println("请输入下载目录：");
-                    isType = true;
-                }
-                else if(!isType){
-                    isType = false;
+                    return fileHandler(reader);
+                }else if(line.equals("2")){
+                    return esHandler();
+                }else{
                     System.out.println("输入的类型不正确，请重新选择类型：");
                 }
-                else if(isType){
-                    dest = line;
-                    break;
-                }
-
-                if(time == 3){
+                if(time > 3){
                     System.exit(-1);
                 }
-
                 time++;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return dest;
+        return null;
+    }
+
+    public static HandlerResult fileHandler(BufferedReader reader){
+        HandlerResult result = new HandlerResult();
+        try {
+            System.out.println("请输入下载目录：");
+            String line = reader.readLine();
+            result.setDest(line);
+            result.setType(StoreType.FILE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static HandlerResult esHandler(){
+        HandlerResult result = new HandlerResult();
+        result.setType(StoreType.ES);
+        return result;
     }
 
     private static void run(Param param){
         String[] urls = new String[param.getUrl().size()];
         param.getUrl().toArray(urls);
-        String dest = read();
+        HandlerResult result = readIn();
         DefaultPipelineSelector selector = new DefaultPipelineSelector();
-        FilePipeline filePipeline = (FilePipeline) selector.select(StoreType.FILE);
-        filePipeline.setPath(dest);
+        Pipeline pipeline =  selector.select(result);
         Spider.create(buildProcessor(param))
               .thread(param.getThreadNum())
-              .addPipeline(filePipeline)
+              .addPipeline(pipeline)
               .addUrl(urls)
               .run();
     }

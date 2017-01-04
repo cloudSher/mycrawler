@@ -1,6 +1,7 @@
 package com.sher.mycrawler.crawl.pipeline;
 
 import com.sher.mycrawler.crawl.core.constant.StoreType;
+import com.sher.mycrawler.crawl.scripts.HandlerResult;
 import us.codecraft.webmagic.pipeline.Pipeline;
 
 /**
@@ -9,6 +10,6 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 public interface PipelineSelector {
 
 
-    Pipeline select(StoreType type);
+    Pipeline select(HandlerResult result);
 
 }

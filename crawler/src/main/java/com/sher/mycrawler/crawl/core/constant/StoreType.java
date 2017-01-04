@@ -5,9 +5,10 @@ package com.sher.mycrawler.crawl.core.constant;
  */
 public enum  StoreType {
 
-   IMAGE,
     FILE,
-    VEDIO;
+    ES,
+    IMAGE;
+
 
     StoreType(){
     }
