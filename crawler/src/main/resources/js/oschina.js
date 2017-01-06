@@ -2,8 +2,8 @@ var config = {
     ua: '',
     sleepTime : 20
 }
-var title = $("div.blog-content div.title");
-var content = $("textarea.noshow_content");
+var title = xpath("//div[@class='blog-content']/div[@class='blog-heading']/div[@class='title']/text()");
+var content = xpath("//textarea[@class='noshow_content']/text()");
 
 var url=page.getUrl().toString();
 var document = {
