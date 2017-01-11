@@ -1,6 +1,8 @@
 package com.sher.mycrawler.config;
 
 import java.io.*;
+import java.net.URI;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 /**
@@ -12,11 +14,13 @@ public class Configuration {
     private final String PATH="config.properties";
 
     public Properties load(String path){
-         if(path == null || path.trim().length() == 0){
-            return null;
-         }
+        InputStream stream = null;
         try {
-            InputStream stream = new FileInputStream(checkPath(path)?path:PATH);
+            String configPath = currPath() + File.separator + PATH;
+            File file = new File(PATH);
+            System.out.println("================  config.properties file path :" + file.toString() + ",current path :" + currPath());
+            if(file.exists())
+                stream = new FileInputStream(file);
             if(stream == null){
                 stream = loadPathFromClassPath();
             }
@@ -30,17 +34,19 @@ public class Configuration {
     }
 
     public InputStream loadPathFromClassPath(){
-        InputStream stream = this.getClass().getClassLoader().getResourceAsStream("config.properties");
+        InputStream stream = this.getClass().getClassLoader().getResourceAsStream(PATH);
         return stream;
     }
 
     public boolean checkPath(String path){
-        File file = new File(path);
-        if(!file.exists()){
+        if(path == null || path.trim().length() == 0){
             return false;
         }
         return true;
     }
 
+    public String currPath(){
+        return System.getProperty("user.dir");
+    }
 
 }

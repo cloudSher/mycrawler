@@ -4,9 +4,7 @@ import com.sher.mycrawler.config.ConfigParam;
 import com.sher.mycrawler.config.Configuration;
 import com.sher.mycrawler.driver.Driver;
 import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -40,7 +38,7 @@ public class ElasticSearchDriver implements Driver<TransportClient>  {
                 if(prop == null){
                     throw new IllegalArgumentException("config properties must not be null");
                 }
-                client = new PreBuiltTransportClient(Settings.EMPTY)
+                client =  TransportClient.builder().build()
                             .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName((String) prop.getProperty(ConfigParam.HOST,HOST)),Integer.valueOf(prop.getProperty(ConfigParam.PORT,PORT+""))));
 
             } catch (UnknownHostException e) {
