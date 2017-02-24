@@ -128,7 +128,7 @@ public class ScriptConsole {
 
 
     public static PageProcessor buildProcessor(Param param){
-        ScriptProcessor processor = new ScriptProcessor.Builder().addLang(param.getLang())
+        ScriptProcessor processor = new ScriptProcessor.Builder().addLang(param.getLang()).ThreadNum(param.getThreadNum())
                 .buildScript(param.getFileName()).build();
         processor.getSite().setSleepTime(param.getSleepTime());
         return processor;

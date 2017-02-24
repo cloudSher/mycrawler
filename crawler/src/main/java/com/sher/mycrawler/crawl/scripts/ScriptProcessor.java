@@ -25,11 +25,13 @@ public class ScriptProcessor implements PageProcessor {
     private Site site = Site.me();
     private String script;
     private String defines;
+    private int num;
 
-    ScriptProcessor(ScriptLang lang , String script){
+    ScriptProcessor(ScriptLang lang , String script,int num){
         this.lang = lang;
         this.script = script;
-        this.pool = new ScriptEnginePool(lang);
+        this.num = num;
+        this.pool = new ScriptEnginePool(lang,num);
         loadDefinesJs(lang.getDefines());
     }
 
@@ -44,15 +46,18 @@ public class ScriptProcessor implements PageProcessor {
     }
 
     public void process(Page page) {
-        ScriptEngine engine = pool.getEngine();
+        ScriptEngine engine = null;
         try{
-            ScriptContext context = engine.getContext();
-            context.setAttribute("page",page,ScriptContext.ENGINE_SCOPE);
-            context.setAttribute("config",site,ScriptContext.ENGINE_SCOPE);
-            switch (lang){
-                case JAVASCRIPT:
-                    engine.eval(defines + "\n" + script ,context);
-                    break;
+            engine = pool.getEngine();
+            if(engine!= null){
+                ScriptContext context = engine.getContext();
+                context.setAttribute("page",page,ScriptContext.ENGINE_SCOPE);
+                context.setAttribute("config",site,ScriptContext.ENGINE_SCOPE);
+                switch (lang){
+                    case JAVASCRIPT:
+                        engine.eval(defines + "\n" + script ,context);
+                        break;
+                }
             }
         }catch (Exception e){
             logger.error("scriptProcessor process() error info,page {}",page,e);
@@ -70,6 +75,7 @@ public class ScriptProcessor implements PageProcessor {
         private final static ScriptLang DEFAULT = ScriptLang.JAVASCRIPT;
         private ScriptLang lang = DEFAULT;
         private String script;
+        private int threadNum;
 
         public Builder addLang(ScriptLang lang){
             this.lang = lang;
@@ -100,7 +106,12 @@ public class ScriptProcessor implements PageProcessor {
         }
 
         public ScriptProcessor build(){
-            return new ScriptProcessor(lang,script);
+            return new ScriptProcessor(lang,script,threadNum);
+        }
+
+        public Builder ThreadNum(int threadNum) {
+            this.threadNum =threadNum;
+            return this;
         }
     }
 }

@@ -4,6 +4,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.IntStream;
 
 /**
  * Created by Administrator on 2016/12/28.
@@ -14,18 +15,21 @@ public class ScriptEnginePool {
     private AtomicInteger count = new AtomicInteger();
     private LinkedBlockingQueue<ScriptEngine> queue = new LinkedBlockingQueue();
 
-    ScriptEnginePool(ScriptLang lang){
+    ScriptEnginePool(ScriptLang lang,int num){
         this.manager = new ScriptEngineManager();
-        if(lang.equals(ScriptLang.JAVASCRIPT)) {
-            ScriptEngine engine = manager.getEngineByName(lang.getDesc());
-            queue.add(engine);
-        }
+        IntStream.of(num).forEach(n -> {
+            if(lang.equals(ScriptLang.JAVASCRIPT)) {
+                ScriptEngine engine = manager.getEngineByName(lang.getDesc());
+                queue.add(engine);
+            }
+        });
+
     }
 
 
-    public ScriptEngine getEngine(){
+    public ScriptEngine getEngine() throws InterruptedException {
         count.decrementAndGet();
-        return queue.poll();
+        return queue.take();
     }
 
     public void release(ScriptEngine engine){
